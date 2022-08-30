@@ -4,72 +4,84 @@ const express = require("express");
 //INITIALIZING EXPRESS APP
 const app = express();
 
-//SUPERHEROES ARRAY
-const supes = [
+const superheroes = [
+    //SUPERHEROES OBJECT
     {
-        name: 'Superman',
-        powers: ['Flight', 'Laser Vision', 'Cold Breath', 'Super Speed'],
+        supes: [
+            {
+                name: 'Superman',
+                powers: ['Flight', 'Laser Vision', 'Cold Breath', 'Super Speed'],
+            },
+            {
+                name: 'Wonder Woman',
+                powers: ['Truth Whip', 'Super Strength', 'Flight'],
+            },
+            {
+                name: 'Batman',
+                powers: ['Giga-Rich', 'MMA Master', 'Bachelor'],
+            }
+        ]
     },
-    {
-        name: 'Wonder Woman',
-        powers: ['Truth Whip', 'Super Strength', 'Flight'],
-    },
-    {
-        name: 'Batman',
-        powers: ['Giga-Rich', 'MMA Master', 'Bachelor'],
-    }
-];
 
-//VILLAINS ARRAY
-const villains = [
+    //VILLAINS OBJECT
     {
-        name: 'Brainiac',
-        powers: ['Twelth Level Intellect', 'Conciosness Transferrence', 'Super Strength'],
-    },
-    {
-        name: 'Ares',
-        powers: ['Super Strength', 'Super speed', 'Immortality'],
-    },
-    {
-        name: 'Joker',
-        powers: ['Insanity', 'Fearless', 'Super Smart'],
+        villains: [
+            {
+                name: 'Brainiac',
+                powers: ['Twelth Level Intellect', 'Conciosness Transferrence', 'Super Strength'],
+            },
+            {
+                name: 'Ares',
+                powers: ['Super Strength', 'Super speed', 'Immortality'],
+            },
+            {
+                name: 'Joker',
+                powers: ['Insanity', 'Fearless', 'Super Smart'],
+            }
+        ]
     }
 ]
 
-//CALL SUPES ARRAY
-app.get('/supes', (req, res) => {
-    res.send(supes)
+//CALL SUPERHEROES
+app.get('/superheroes', (req, res) => {
+    res.send(superheroes)
 })
 
+//CALL SUPES ARRAY
+app.get('/superheroes/supes', (req, res) => {
+    res.send(superheroes[0].supes)
+})
+
+
 //CALL VILLAINS ARRAY
-app.get('/villains', (req, res) => {
-    res.send(villains)
+app.get('/superheroes/villains', (req, res) => {
+    res.send(superheroes[1].villains)
 })
 
 
 //CALL SUPES INDEX
-app.get('/supes/:index', (req, res) => {
+app.get('/superheroes/supes/:index', (req, res) => {
     res.send(
-        `<h1>${supes[req.params.index].name}</h1>
+        `<h1>${superheroes[0].supes[req.params.index].name}</h1>
     <ul>
-        <li>${supes[req.params.index].powers.join("</li><li>")}</li>
+        <li>${superheroes[0].supes[req.params.index].powers.join("</li><li>")}</li>
     </ul>
-    <h3>Nemesis: ${villains[req.params.index].name}</h3>
+    <h3>Nemesis: ${superheroes[1].villains[req.params.index].name}</h3>
     <ul>
-        <li>${villains[req.params.index].powers.join("</li><li>")}</li>
+        <li>${superheroes[1].villains[req.params.index].powers.join("</li><li>")}</li>
     </ul>`)
 })
 
 //CALL VILLAINS INDEX
-app.get('/villains/:index', (req, res) => {
+app.get('/superheroes/villains/:index', (req, res) => {
     res.send(
-        `<h1>${villains[req.params.index].name}</h1>
+        `<h1>${superheroes[1].villains[req.params.index].name}</h1>
     <ul>
-        <li>${villains[req.params.index].powers.join("</li><li>")}</li>
+        <li>${superheroes[1].villains[req.params.index].powers.join("</li><li>")}</li>
     </ul>
-    <h3>Nemesis: ${supes[req.params.index].name}</h3>
+    <h3>Nemesis: ${superheroes[0].supes[req.params.index].name}</h3>
     <ul>
-        <li>${supes[req.params.index].powers.join("</li><li>")}</li>
+        <li>${superheroes[0].supes[req.params.index].powers.join("</li><li>")}</li>
     </ul>`)
 })
 
